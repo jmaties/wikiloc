@@ -1,5 +1,9 @@
 <?php
-
+/**
+* @file
+* Controls the output of Drupal.
+*
+*/
 /**
 *
  * @author Javier Maties - Geekia
@@ -20,38 +24,38 @@
  * Provides the description of the field.
  */
 function wikiloc_field_info() {
-	return array(
-		// We name our field as the associative name of the array.
-		'wikiloc_fields' => array(
-			'label' => t('Wikiloc'),
-			'description' => t('Wikiloc field iframe.'),
-			'default_widget' => 'wikiloc_field_widget',
-			'default_formatter' => 'wikiloc_field_formatter',
-		),
-	);
+    return array(
+        // We name our field as the associative name of the array.
+        'wikiloc_fields' => array(
+            'label' => t('Wikiloc'),
+            'description' => t('Wikiloc field iframe.'),
+            'default_widget' => 'wikiloc_field_widget',
+            'default_formatter' => 'wikiloc_field_formatter',
+        ),
+    );
 }
 
 /**
  * Implements hook_field_formatter_info().
  */
 function wikiloc_field_formatter_info() {
-	return array(
-			'wikiloc_field_formatter' => array(
-					'label' => t('Wikiloc iframe'),
-					'field types' => array('wikiloc_fields'),
-			),
-	);
+    return array(
+            'wikiloc_field_formatter' => array(
+                    'label' => t('Wikiloc iframe'),
+                    'field types' => array('wikiloc_fields'),
+            ),
+    );
 }
 /**
  * Implements hook_field_widget_info().
  */
 function wikiloc_field_widget_info() {
-	return array(
-			'wikiloc_field_widget' => array(
-					'label' => t('Wikiloc iframe'),
-					'field types' => array('wikiloc_fields'),
-			),
-	);
+    return array(
+            'wikiloc_field_widget' => array(
+                    'label' => t('Wikiloc iframe'),
+                    'field types' => array('wikiloc_fields'),
+            ),
+    );
 }
 
 /**
@@ -62,7 +66,7 @@ function wikiloc_field_widget_info() {
  * the form API flag an error when required fields are empty.
  */
 function wikiloc_field_is_empty($item, $field) {
-	return empty($item['id']);
+    return empty($item['id']);
 }
 
 
@@ -73,31 +77,31 @@ function wikiloc_field_is_empty($item, $field) {
  * @see wikiloc_field_formatter_info()
  */
 function wikiloc_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
-	$element = array();
+    $element = array();
 
-	switch ($display['type']) {
-		// This formatter simply outputs the iframe
-		case 'wikiloc_field_formatter':
-		foreach ($items as $delta => $item) {
-			$wik_id = $item['id'];
-			$wik_measures = ($item['measures']=='on') ? '&measures=on':'';
-			$wik_near = ($item['near']=='on') ? '&near=on':'';
-			$wik_images = ($item['images']=='on') ? '&images=on':'';
-			$wik_maptype = $item['maptype'];
-			$wik_width = $item['width'];
-			$wik_height = $item['height'];
+    switch ($display['type']) {
+        // This formatter simply outputs the iframe
+        case 'wikiloc_field_formatter':
+        foreach ($items as $delta => $item) {
+            $wik_id = $item['id'];
+            $wik_measures = ($item['measures']=='on') ? '&measures=on':'';
+            $wik_near = ($item['near']=='on') ? '&near=on':'';
+            $wik_images = ($item['images']=='on') ? '&images=on':'';
+            $wik_maptype = $item['maptype'];
+            $wik_width = $item['width'];
+            $wik_height = $item['height'];
 
-			$iframe = '<iframe scrolling="no" frameBorder="0" src="http://es.wikiloc.com/wikiloc/spatialArtifacts.do?event=view&id='.$wik_id.$wik_measures.$wik_near.$wik_images.'&maptype='.$wik_maptype.'" width="'.$wik_width.'px" height="'.$wik_height.'px"></iframe>';
+            $iframe = '<iframe scrolling="no" frameBorder="0" src="http://es.wikiloc.com/wikiloc/spatialArtifacts.do?event=view&id=' . $wik_id . $wik_measures . $wik_near . $wik_images . '&maptype=' . $wik_maptype . '" width="' . $wik_width . 'px" height="' . $wik_height . 'px"></iframe>';
 
-			$element[$delta] = array(
-	        '#markup' => $iframe,
-	    );
-		}
-			break;
+            $element[$delta] = array(
+            '#markup' => $iframe,
+        );
+        }
+            break;
 
-	}
+    }
 
-	return $element;
+    return $element;
 }
 
 
@@ -111,95 +115,94 @@ function wikiloc_field_formatter_view($entity_type, $entity, $field, $instance, 
  */
 function wikiloc_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
 
-	switch ($instance['widget']['type']) {
+    switch ($instance['widget']['type']) {
 
-		case 'wikiloc_field_widget':
+        case 'wikiloc_field_widget':
 
-		$element = array(
-					'#type' => 'fieldset',
-					'#title' => t('Location/Itinerary (wikiloc)'),
-					'#langcode' => $langcode,
-			);
+        $element = array(
+                    '#type' => 'fieldset',
+                    '#title' => t('Location/Itinerary (wikiloc)'),
+                    '#langcode' => $langcode,
+            );
 
 foreach ($items as $delta => $item) {
 
 
-			 $element['id'] = array(
-				'#type' => 'textfield',
-				'#title' => t('Wikiloc Id'),
-				'#size' => 10,
-				'#maxlength' => 10,
-				'#required' => FALSE,
-				'#default_value' => $item['id'],
-			);
+             $element['id'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Wikiloc Id'),
+                '#size' => 10,
+                '#maxlength' => 10,
+                '#required' => FALSE,
+                '#default_value' => $item['id'],
+            );
 
-			 $element['measures'] = array(
-				'#type' => 'select',
-				'#title' => t('Measures'),
-				'#options' => array(
-					'of' => t('Off'),
-					'on' => t('On'),
-				),
-				'#default_value' => ($item['measures'])?$item['measures']:'off',
-				'#description' => t('measures')
-			);
+             $element['measures'] = array(
+                '#type' => 'select',
+                '#title' => t('Measures'),
+                '#options' => array(
+                    'of' => t('Off'),
+                    'on' => t('On'),
+                ),
+                '#default_value' => ($item['measures'])?$item['measures']:'off',
+                '#description' => t('measures')
+            );
 
-			 $element['near'] = array(
-				'#type' => 'select',
-				'#title' => t('Near'),
-				'#options' => array(
-					'of' => t('Off'),
-					'on' => t('On'),
-				),
-				'#default_value' => ($item['near'])?$item['near']:'off',
-				'#description' => t('near')
-			);
+             $element['near'] = array(
+                '#type' => 'select',
+                '#title' => t('Near'),
+                '#options' => array(
+                    'of' => t('Off'),
+                    'on' => t('On'),
+                ),
+                '#default_value' => ($item['near'])?$item['near']:'off',
+                '#description' => t('near')
+            );
 
-			 $element['images'] = array(
-				'#type' => 'select',
-				'#title' => t('Images'),
-				'#options' => array(
-					'of' => t('Off'),
-					'on' => t('On'),
-				),
-				'#default_value' => ($item['images'])?$item['images']:'off',
-				'#description' => t('images')
-			);
+             $element['images'] = array(
+                '#type' => 'select',
+                '#title' => t('Images'),
+                '#options' => array(
+                    'of' => t('Off'),
+                    'on' => t('On'),
+                ),
+                '#default_value' => ($item['images'])?$item['images']:'off',
+                '#description' => t('images')
+            );
 
-			 $element['maptype'] = array(
-				'#type' => 'select',
-				'#title' => t('Prefered map type'),
-				'#options' => array(
-					'M' => t('Normal Map'),
-					'S' => t('Satellite Map'),
-					'H' => t('Hybrid Map'),
-					'T' => t('Terrain (physical) Map'),
+             $element['maptype'] = array(
+                '#type' => 'select',
+                '#title' => t('Prefered map type'),
+                '#options' => array(
+                    'M' => t('Normal Map'),
+                    'S' => t('Satellite Map'),
+                    'H' => t('Hybrid Map'),
+                    'T' => t('Terrain (physical) Map'),
 
-				),
-				'#default_value' => ($item['maptype'])?$item['maptype']:'T',
-				'#description' => t('near')
-			);
+                ),
+                '#default_value' => ($item['maptype'])?$item['maptype']:'T',
+                '#description' => t('near')
+            );
 
-			 $element['width'] = array(
-				'#type' => 'textfield',
-				'#title' => t('Width iframe'),
-				'#default_value' => ($item['width'])?$item['width']:600,
-				'#size' => 10,
-				'#maxlength' => 10,
-			);
-			 $element['height'] = array(
-				'#type' => 'textfield',
-				'#title' => t('Height iframe'),
-				'#default_value' => ($item['height'])?$item['height']:400,
-				'#size' => 10,
-				'#maxlength' => 10,
-			);
-			}
-			break;
+             $element['width'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Width iframe'),
+                '#default_value' => ($item['width'])?$item['width']:600,
+                '#size' => 10,
+                '#maxlength' => 10,
+            );
+             $element['height'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Height iframe'),
+                '#default_value' => ($item['height'])?$item['height']:400,
+                '#size' => 10,
+                '#maxlength' => 10,
+            );
+            }
+            break;
 
 
-	}
+    }
 
-	return $element;
+    return $element;
 }
-
