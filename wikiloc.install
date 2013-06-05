@@ -24,40 +24,44 @@
 function wikiloc_field_schema($field) {
   $columns = array(
     'id' => array(
-      'type' => 'varchar', 
-      'length' => 255, 
-      'not null' => FALSE
-      ),
+      'type' => 'varchar',
+      'length' => 255,
+      'not null' => FALSE,
+    ),
     'measures' => array(
-      'type' => 'varchar', 
-      'length' => 2, 
-      'not null' => FALSE, 
-      'default' => 'on'
-      ),
+      'type' => 'varchar',
+      'length' => 2,
+      'not null' => FALSE,
+      'default' => 'on',
+    ),
     'near' => array(
-      'type' => 'varchar', 
-      'length' => 2, 
-      'not null' => FALSE, 
-      'default' => 'on'
-      ),
+      'type' => 'varchar',
+      'length' => 2,
+      'not null' => FALSE,
+      'default' => 'on',
+    ),
     'images' => array(
-      'type' => 'varchar', 
-      'length' => 2, 
-      'not null' => FALSE, 
-      'default' => 'on'
-      ),
+      'type' => 'varchar',
+      'length' => 2,
+      'not null' => FALSE,
+      'default' => 'on',
+    ),
     'maptype' => array(
-      'type' => 'varchar', 
-      'length' => 2, 
-      'not null' => FALSE, 
-      'default' => 'S'
-      ),
+      'type' => 'varchar',
+      'length' => 2,
+      'not null' => FALSE,
+      'default' => 'S',
+    ),
     'width' => array(
-      'type' => 'int', 
-      'length' => 12, 
-      'not null' => FALSE
-      ),
-    'height' => array('type' => 'int', 'length' => 12, 'not null' => FALSE),
+      'type' => 'int',
+      'length' => 12,
+      'not null' => FALSE,
+    ),
+    'height' => array(
+      'type' => 'int',
+      'length' => 12,
+      'not null' => FALSE,
+    ),
   );
   $indexes = array(
     'id' => array('id'),
