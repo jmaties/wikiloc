@@ -24,14 +24,14 @@
  * Provides the description of the field.
  */
 function wikiloc_field_info() {
-    return array(
-        // We name our field as the associative name of the array.
-        'wikiloc_fields' => array(
-            'label' => t('Wikiloc'),
-            'description' => t('Wikiloc field iframe.'),
-            'default_widget' => 'wikiloc_field_widget',
-            'default_formatter' => 'wikiloc_field_formatter',
-        ),
+  return array(
+      // We name our field as the associative name of the array.
+      'wikiloc_fields' => array(
+          'label' => t('Wikiloc'),
+          'description' => t('Wikiloc field iframe.'),
+          'default_widget' => 'wikiloc_field_widget',
+          'default_formatter' => 'wikiloc_field_formatter',
+      ),
     );
 }
 

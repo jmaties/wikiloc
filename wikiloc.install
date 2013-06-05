@@ -28,8 +28,8 @@ function wikiloc_field_schema($field) {
     'near' => array('type' => 'varchar', 'length' => 2, 'not null' => FALSE, 'default' => 'on'),
     'images' => array('type' => 'varchar', 'length' => 2, 'not null' => FALSE, 'default' => 'on'),
     'maptype' => array('type' => 'varchar', 'length' => 2, 'not null' => FALSE, 'default' => 'S'),
-    'width' => array('type' => 'int', 'length' => 12, 'not null' => FALSE,),
-    'height' => array('type' => 'int', 'length' => 12, 'not null' => FAlSE,),
+    'width' => array('type' => 'int', 'length' => 12, 'not null' => FALSE),
+    'height' => array('type' => 'int', 'length' => 12, 'not null' => FALSE),
   );
   $indexes = array(
     'id' => array('id'),

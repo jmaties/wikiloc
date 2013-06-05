@@ -1,2 +1,3 @@
 name = WikiLoc
 core = 7.x
+description = Show map routes from http://es.wikiloc.com/
