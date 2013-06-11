@@ -99,6 +99,8 @@ return $element;
  */
 function wikiloc_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
 
+  $item = $items[$delta];
+  // thanks https://drupal.org/user/1455932 (seb_tsolutions)
   switch ($instance['widget']['type']) {
 
     case 'wikiloc_field_widget':
@@ -114,7 +116,7 @@ function wikiloc_field_widget_form(&$form, &$form_state, $field, $instance, $lan
       '#size' => 10,
       '#maxlength' => 10,
       '#required' => FALSE,
-      '#default_value' => (isset($items[$delta]))?$items[$delta]['id']:'',
+      '#default_value' => (isset($item))?$item['id']:'',
       );
 
      $element['measures'] = array(
@@ -124,7 +126,7 @@ function wikiloc_field_widget_form(&$form, &$form_state, $field, $instance, $lan
         'of' => t('Off'),
         'on' => t('On'),
         ),
-      '#default_value' => (isset($items[$delta]))?$items[$delta]['measures']:'off',
+      '#default_value' => (isset($item))?$item['measures']:'off',
       '#description' => t('measures')
       );
 
@@ -135,7 +137,7 @@ function wikiloc_field_widget_form(&$form, &$form_state, $field, $instance, $lan
         'of' => t('Off'),
         'on' => t('On'),
         ),
-      '#default_value' => (isset($items[$delta]))?$items[$delta]['near']:'off',
+      '#default_value' => (isset($item))?$item['near']:'off',
       '#description' => t('near')
       );
 
@@ -146,7 +148,7 @@ function wikiloc_field_widget_form(&$form, &$form_state, $field, $instance, $lan
         'of' => t('Off'),
         'on' => t('On'),
         ),
-      '#default_value' => (isset($items[$delta]))?$items[$delta]['images']:'off',
+      '#default_value' => (isset($item))?$item['images']:'off',
       '#description' => t('images')
       );
 
@@ -160,21 +162,21 @@ function wikiloc_field_widget_form(&$form, &$form_state, $field, $instance, $lan
         'T' => t('Terrain (physical) Map'),
 
         ),
-      '#default_value' => (isset($items[$delta]))?$items[$delta]['maptype']:'T',
+      '#default_value' => (isset($item))?$item['maptype']:'T',
       '#description' => t('near')
       );
 
      $element['width'] = array(
       '#type' => 'textfield',
       '#title' => t('Width iframe'),
-      '#default_value' => (isset($items[$delta]))?$items[$delta]['width']:600,
+      '#default_value' => (isset($item))?$item['width']:600,
       '#size' => 10,
       '#maxlength' => 10,
       );
      $element['height'] = array(
       '#type' => 'textfield',
       '#title' => t('Height iframe'),
-      '#default_value' => (isset($items[$delta]))?$items[$delta]['height']:400,
+      '#default_value' => (isset($item))?$item['height']:400,
       '#size' => 10,
       '#maxlength' => 10,
       );
