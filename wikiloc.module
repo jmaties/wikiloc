@@ -111,7 +111,7 @@ return $element;
  */
 function wikiloc_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
 
-  $item = $items[$delta];
+  $item = isset($items[$delta]) ? $items[$delta] : NULL;
   // thanks https://drupal.org/user/1455932 (seb_tsolutions)
   switch ($instance['widget']['type']) {
 
