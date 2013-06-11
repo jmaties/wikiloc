@@ -36,6 +36,18 @@ function wikiloc_field_info() {
 }
 
 /**
+ * Implements hook_field_formatter_info().
+ */
+function wikiloc_field_formatter_info() {
+  return array(
+    'wikiloc_field_formatter' => array(
+      'label' => t('Wikiloc iframe'),
+      'field types' => array('wikiloc_fields'),
+    ),
+  );
+}
+
+/**
  * Implements hook_field_widget_info().
  */
 function wikiloc_field_widget_info() {
